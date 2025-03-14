@@ -1,50 +1,53 @@
-package formulario.demo.controller;
-import formulario.demo.model.promedioModel;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+<!doctype html>
+<html lang="en"
+        xmlns:th="http://www.thymeleaf.org">>
 
-@Controller
-public class promedioController {
-    @GetMapping("/promedio")
-    public String promedio(Model model){
-    model.addAttribute("formulariomodel", new promedioModel());
-        model.addAttribute("visualizaralerta", false);
-        return "promedio";
-    }
-@PostMapping("/calcularpromedio")
-public String calcularpromedio(@ModelAttribute("formulariomodel") promedioModel promedio,
-                               Model model){
-Double nnota1 = promedio.getNota1();
-Double nnota2 = promedio.getNota2();
-Double nnota3 = promedio.getNota3();
-Double nnotafinal = promedio.getNotaFinal();
-Double resultado = ((nnota1* 0.4) + (nnota2* 0.12)+(nnota3* 0.24)+(nnotafinal* 0.60))/4;
-String estiloDiagnostico ="alert-danger";
-String mensaje = "";
-if (resultado >= 14){
-    mensaje = "Desaprobado";
-    estiloDiagnostico ="alert-warner";
-}
-else{
-    mensaje = "Aprobado";
-    estiloDiagnostico ="alert-danger";
+<head>
+<meta charset="UTF-8">
+<title>Document</title>
+<link th:href="@{/css/bootstrap/bootstrap.css}"
+        rel="stylesheet" >
 
+</head>
+<body>
+<div class="card">
+<div class="card-header">
+        CALCULADORA NOTAS
+</div>
+<div class="card-body">
+<form th:action="@{/calcularpromedio}" method="post" th:object="${promedioModel}">
 
-}
-    model.addAttribute("resultado", "Su promedio es" + String.format("%.2f", resultado)+
-            " se encuentra"+mensaje);
-    model.addAttribute("visualizaralerta", true);
-    model.addAttribute("estilodiagnostico", estiloDiagnostico);
+<div class="mb-3">
+<label for="txtnota1" class="form-label">Ingrese su Nota 1:</label>
+<input type="number" th:field="*{nota1}" class="form-control" id="txtnota1" placeholder="Ingrese su nota 1">
+</div>
 
+<div class="mb-3">
+<label for="txtnota2" class="form-label">Ingrese su Nota 2:</label>
+<input type="number" th:field="*{nota2}" class="form-control" id="txtnota2" placeholder="Ingrese su nota 2">
+</div>
 
+<div class="mb-3">
+<label for="txtnota3" class="form-label">Ingrese su Nota 3:</label>
+<input type="number" th:field="*{nota3}" class="form-control" id="txtnota3" placeholder="Ingrese su nota 3">
+</div>
 
+<div class="mb-3">
+<label for="txtnota4" class="form-label">Ingrese EC final:</label>
+<input type="number" th:field="*{nota4}" class="form-control" id="txtnota4" placeholder="Ingrese su nota 4">
+</div>
 
+<button type="submit" class="btn btn-primary">Calcular Promedio</button>
 
-        return "imc";
-}
+<!-- Alert that will show based on visualizaralerta -->
+<div th:if="${visualizaralerta}" class="alert" th:classappend="${estilodiagnostico}" role="alert">
+<span th:text="${resultado} ?: ''"></span>
+</div>
+</form>
+</div>
+</div>
+</body>
+</html>
 
 
 }
