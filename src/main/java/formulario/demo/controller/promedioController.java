@@ -43,7 +43,7 @@ else{
 
 
 
-        return "imc";
+        return "promedio";
 }
 
 
