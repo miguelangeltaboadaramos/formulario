@@ -4,7 +4,7 @@ public class promedioModel {
     private Double nota1;
     private Double nota2;
     private Double nota3;
-    private Double notaFinal;
+    private Double nota4;
 
     public Double getNota1() {
         return nota1;
@@ -30,11 +30,11 @@ public class promedioModel {
         this.nota3 = nota3;
     }
 
-    public Double getNotaFinal() {
-        return notaFinal;
+    public Double getNota4() {
+        return nota4;
     }
 
-    public void setNotaFinal(Double notaFinal) {
-        this.notaFinal = notaFinal;
+    public void setNota4(Double nota4) {
+        this.nota4 = nota4;
     }
 }
