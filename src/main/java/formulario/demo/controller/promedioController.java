@@ -44,6 +44,7 @@ public class promedioController {
 
 
         return "promedio";
+
     }
 
 
